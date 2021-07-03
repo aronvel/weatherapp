@@ -21,7 +21,6 @@ app.get("", (req, res) =>
 );
 
 app.get("/weather", (req, res) => {
-  console.log(req.query.address);
   if (!req.query.address) {
     res.send({ erros: "You must provide an address!" });
   } else {
@@ -29,19 +28,20 @@ app.get("/weather", (req, res) => {
       req.query.address,
       (error, { latitude, longitude, location } = {}) => {
         if (error) {
-          return res.send(error);
-        }
-        forecast(latitude, longitude, (error, forecastData) => {
-          if (error) {
-            return res.send(error);
-          }
-          // console.log("Location: ", data);
-          return res.send({
-            forecast: forecastData,
-            location,
-            address: req.query.address,
+          return res.send({ errors: error });
+        } else {
+          forecast(latitude, longitude, (error, forecastData) => {
+            if (error) {
+              return res.send({ errors: error });
+            } else {
+              return res.send({
+                forecast: forecastData,
+                location,
+                address: req.query.address,
+              });
+            }
           });
-        });
+        }
       }
     );
   }

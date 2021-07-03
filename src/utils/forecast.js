@@ -9,7 +9,6 @@ const forecast = (latitude, longitude, callback) => {
     longitude +
     "&appid=d4756b97a46919a0eed174984b925d6c";
   request({ url: url, json: true }, (error, { body }) => {
-    console.log(body);
     if (error) {
       return callback("unable to connect to service", undefined);
     } else if (body.cod === "400") {
