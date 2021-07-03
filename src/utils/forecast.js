@@ -1,3 +1,4 @@
+const { response } = require("express");
 const request = require("request");
 
 const forecast = (latitude, longitude, callback) => {
@@ -8,15 +9,16 @@ const forecast = (latitude, longitude, callback) => {
     longitude +
     "&appid=d4756b97a46919a0eed174984b925d6c";
   request({ url: url, json: true }, (error, { body }) => {
+    console.log(body);
     if (error) {
-      callback("unable to connect to service", undefined);
-    } else if (body.cod === 400) {
-      callback(
+      return callback("unable to connect to service", undefined);
+    } else if (body.cod === "400") {
+      return callback(
         "Unable to find weather data for the provided location, please try again",
         undefined
       );
     } else {
-      callback(
+      return callback(
         undefined,
         "It is " +
           body.main.temp +

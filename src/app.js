@@ -29,14 +29,14 @@ app.get("/weather", (req, res) => {
       req.query.address,
       (error, { latitude, longitude, location } = {}) => {
         if (error) {
-          res.send(error);
+          return res.send(error);
         }
         forecast(latitude, longitude, (error, forecastData) => {
           if (error) {
-            res.send(error);
+            return res.send(error);
           }
           // console.log("Location: ", data);
-          res.send({
+          return res.send({
             forecast: forecastData,
             location,
             address: req.query.address,
