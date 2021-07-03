@@ -5,7 +5,7 @@ const forecast = require("./utils/forecast.js");
 const geocode = require("./utils/geocode.js");
 
 const app = express();
-
+const port = process.env.PORT || 3000;
 const publicDirectorPath = path.join(__dirname, "../public");
 const viewPath = path.join(__dirname, "../templates/views");
 const partialPath = path.join(__dirname, "../templates/partials");
@@ -61,4 +61,4 @@ app.get("*", (req, res) => {
     errorMessage: "Page Not Found",
   });
 });
-app.listen(3000, () => console.log("server is running at port 3000"));
+app.listen(port, () => console.log("server is running at port" + port));
